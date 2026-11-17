@@ -5183,3 +5183,11 @@ html.cap .pj3 .pj-pan .pj-bt li{animation:none!important}
 @media (max-width:1099px){.pj-lvbtn{align-self:flex-start}}
 @media (max-width:640px){.pj-bt span{font-size:14px}.pj-lv0 iframe{display:none}.pj-lv0::after{content:'';display:block;aspect-ratio:16/9;background:url(assets/casos/c008/p1.webp) center/cover;border-radius:8px}.pj-chip0{display:none}}
 html[data-ui="dark"] .pj-p0 button:not(.on){color:#B9CEF0!important}
+/* Sobre mí: lo que hago en cuatro pasos (en vez de un párrafo) */
+.hago9{list-style:none;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px;margin:6px 0 16px;padding:0;max-width:40rem;counter-reset:h}
+.hago9 li{position:relative;display:flex;flex-direction:column;gap:6px;padding:10px 12px;border-radius:12px;background:rgba(255,255,255,.72);border:1px solid #DCE3EC;font-size:13.5px;font-weight:600;line-height:1.3;color:var(--ink)}
+.hago9 li i{display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#1F4E8C;color:#fff;font-style:normal;font-size:11.5px;font-weight:760}
+.hago9 li+li::before{content:'';position:absolute;left:-8px;top:21px;width:8px;height:2px;background:#9DB3D3}
+html[data-ui="dark"] .hago9 li{background:rgba(255,255,255,.07);border-color:rgba(255,255,255,.16)}
+@media (max-width:640px){.hago9{grid-template-columns:1fr 1fr}.hago9 li+li::before{display:none}}
+html[data-ui="dark"] .hago9 li,html[data-ui="dark"] .hago9 li span{color:#E8EDF4!important}
