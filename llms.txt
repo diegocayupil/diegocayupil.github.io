@@ -8,7 +8,7 @@ The site is a set of static pages. Every page exists in English (at the root) an
 
 - [Home](https://diegocayupil.github.io/): what I do, what I solve, how I work, how I use AI, projects and contact.
 - [About](https://diegocayupil.github.io/about.html): my career, how I think, the tools I use and what I am doing this month.
-- [Projects](https://diegocayupil.github.io/projects.html): business cases end to end. The first one is complete (fill rate to supermarket chains, seven steps from the first meeting to the plan; full case in Spanish at casos/c008/index.html); nine more are on the way. Simulated data, fictional companies.
+- [Projects](https://diegocayupil.github.io/projects.html): business cases end to end. The first one is complete (fill rate to supermarket chains, told in seven steps from the first meeting to the plan); nine more are on the way. Simulated data, fictional companies.
 - [How this site is built](https://diegocayupil.github.io/how-this-site-is-built.html): the loop, the checks and the tools, with their date.
 - [Contact](https://diegocayupil.github.io/contact.html)
 

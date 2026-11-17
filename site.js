@@ -839,7 +839,8 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     let html = '', num = 0; let pos = 0;
     slides.forEach((sl, i) => { num++; const n = +sl.dataset.steps || 1, nm = String(num).padStart(2, '0');
       html += `<li data-pos="${pos}" data-sl="${i}"><a href="#" data-go="${pos}"><span class="node">${lfhtml}</span><b>${nm}</b>${labelOf(sl)}</a></li>`;
-      if (n > 1) { const es = sl.dataset.subEs.split('|'), en = sl.dataset.subEn.split('|'); es.forEach((t, k) => html += `<li class="sub" data-pos="${pos + k}" data-sl="${i}"><a href="#" data-go="${pos + k}"><span class="node">${lfhtml}</span><span class="es">${t}</span><span class="en">${en[k]}</span></a></li>`) }
+      if (n > 1 && sl.dataset.subgAt) { const at = sl.dataset.subgAt.split('|').map(Number), ge = sl.dataset.subgEs.split('|'), gn = sl.dataset.subgEn.split('|'); at.forEach((a, g) => { const b = g + 1 < at.length ? at[g + 1] - 1 : n - 1; html += `<li class="sub grp" data-pos="${pos + a}" data-end="${pos + b}" data-sl="${i}"><a href="#" data-go="${pos + a}"><span class="node">${lfhtml}</span><span class="es">${ge[g]}</span><span class="en">${gn[g]}</span></a></li>` }) }
+      else if (n > 1) { const es = sl.dataset.subEs.split('|'), en = sl.dataset.subEn.split('|'); es.forEach((t, k) => html += `<li class="sub" data-pos="${pos + k}" data-sl="${i}"><a href="#" data-go="${pos + k}"><span class="node">${lfhtml}</span><span class="es">${t}</span><span class="en">${en[k]}</span></a></li>`) }
       pos += n });
     const back = toc.dataset.back ? `<a class="toc-back" href="${toc.dataset.back}">← <span class="es">${toc.dataset.backEs}</span><span class="en">${toc.dataset.backEn}</span></a>` : '';
     const MB = `<div class="modes" role="group" aria-label="Mode · Modo"><button type="button" data-m="claro" aria-pressed="false" aria-label="Light mode" data-al-es="Modo claro" data-al-en="Light mode"><svg viewBox="0 0 16 16" aria-hidden="true"><circle cx="8" cy="8" r="3.2"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M3.4 12.6l1.4-1.4M11.2 4.8l1.4-1.4"/></svg><span class="es">Modo claro</span><span class="en">Light mode</span></button><button type="button" data-m="oscuro" aria-pressed="false" aria-label="Dark mode" data-al-es="Modo oscuro" data-al-en="Dark mode"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M12.6 10.4A5.4 5.4 0 0 1 5.6 3.4a5.4 5.4 0 1 0 7 7z"/></svg><span class="es">Modo oscuro</span><span class="en">Dark mode</span></button></div>`;
@@ -849,6 +850,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
       const th = () => toc.style.setProperty('--th', toc.offsetHeight + 'px'); th(); addEventListener('resize', th); document.addEventListener('langchange', th); document.fonts && document.fonts.ready.then(th) }
     { const nv = $('#nav .nav-icons') || $('#nav .lang'); if (nv) { const m = document.createElement('div'); m.innerHTML = MB; const el = m.firstChild; el.classList.add('mnav'); nv.after(el) } }
     $$('[data-go]', toc).forEach(a => a.addEventListener('click', e => { e.preventDefault(); go(+a.dataset.go) }));
+    window.__dcGo = k => go(k);   /* V5.28: el riel de pasos de Proyectos mueve la vista */
   }
   /* Estilos de índice para elegir (prueba): I1 Sol, I2 Flor, I3 Pétalo, I4 Números, I5 Línea */
   const IXS = ['sol', 'flor', 'petalo', 'num', 'linea']; let IX = 'linea';
@@ -876,7 +878,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
   function syncToc() {
     if (!toc) return; const p = positions[cur];
     tocItems.forEach(li => { const ps = +li.dataset.pos, isSub = li.classList.contains('sub'), sameSl = +li.dataset.sl === p.sl, hasSub = (+slides[+li.dataset.sl].dataset.steps || 1) > 1;
-      const on = isSub ? ps === cur : (sameSl && !hasSub); li.classList.toggle('on', on); li.classList.toggle('par', !isSub && sameSl && hasSub); li.classList.toggle('done', ps < cur && !on && !(sameSl && !isSub)); const a = $('a', li); a.setAttribute('aria-current', on ? 'true' : 'false') });
+      const on = isSub ? (li.dataset.end ? cur >= ps && cur <= +li.dataset.end : ps === cur) : (sameSl && !hasSub); li.classList.toggle('on', on); li.classList.toggle('par', !isSub && sameSl && hasSub); li.classList.toggle('done', (+li.dataset.end || ps) < cur && !on && !(sameSl && !isSub)); const a = $('a', li); a.setAttribute('aria-current', on ? 'true' : 'false') });
     const tc = $('#tc', toc); if (tc) tc.textContent = String(p.sl + 1).padStart(2, '0');
     const th = $('#th', toc), ns = +slides[p.sl].dataset.steps || 1; if (th) th.innerHTML = ns > 1 ? (L() === 'en' ? `step ${p.step} of ${ns}` : `paso ${p.step} de ${ns}`) + ' <span class="bajar">↓</span>' : cur < N - 1 ? (L() === 'en' ? 'scroll <span class="bajar">↓</span>' : 'baja <span class="bajar">↓</span>') : (L() === 'en' ? 'the end' : 'fin');
     /* Si el índice no cabe en la pantalla, solo se abren los pasos de la vista actual */
@@ -1602,7 +1604,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
   document.querySelectorAll('.pj').forEach(sl => {
     const idx = [...document.querySelectorAll('.slide')].indexOf(sl);
     sl.querySelectorAll('.pj-rail button').forEach(b => b.addEventListener('click', () => {
-      const subs = document.querySelectorAll(`.toc li.sub[data-sl="${idx}"] a`), a = subs[+b.dataset.k - 1]; if (a) a.click();
+      const g = document.querySelector(`.toc li.sub[data-sl="${idx}"]`); if (g && window.__dcGo) window.__dcGo(+g.dataset.pos + +b.dataset.k - 1);
     }));
   });
   const fit = () => document.querySelectorAll('.pj-live').forEach(box => { const f = box.querySelector('iframe'); if (!f || !box.clientWidth) return; if (getComputedStyle(f).display === 'none') { box.style.height = ''; return } const k = box.clientWidth / 1280; f.style.transform = `scale(${k})`; box.style.height = (720 * k) + 'px' });
@@ -1625,4 +1627,28 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     try { navigator.clipboard.writeText(text()).then(ok, ok) } catch (e) { ok() } });
   /* las preguntas: una abierta a la vez */
   const ds = [...box.querySelectorAll('.cw-faq details')]; ds.forEach(d => d.addEventListener('toggle', () => { if (d.open) ds.forEach(x => { if (x !== d) x.open = false }) }));
+})();
+
+/* ═══════════ V5.28 · el informe de la portada: tocar una zona la deja a pleno y apaga las otras ═══════════ */
+(function () {
+  const d = document.querySelector('.d9'); if (!d) return;
+  const zs = [...d.querySelectorAll('.d9z')];
+  zs.forEach(z => z.addEventListener('click', () => {
+    const on = z.classList.contains('on'); zs.forEach(x => x.classList.remove('on'));
+    if (on) d.removeAttribute('data-on'); else { z.classList.add('on'); d.dataset.on = z.dataset.z }
+  }));
+  document.addEventListener('click', e => { if (!d.contains(e.target)) { zs.forEach(x => x.classList.remove('on')); d.removeAttribute('data-on') } });
+})();
+/* ═══════════ V5.28 · Proyectos: «Probar el tablero en vivo» cambia la captura por el tablero, escalado a su marco ═══════════ */
+(function () {
+  const fit = box => { const f = box.querySelector('iframe'); if (!f) return; const r = box.getBoundingClientRect(), pad = 10, w = r.width - 2 * pad, h = r.height - 2 * pad;
+    const k = Math.min(w / 1280, h / 720); f.style.transform = `scale(${k})`; f.style.left = (pad + (w - 1280 * k) / 2) + 'px'; f.style.top = (pad + (h - 720 * k) / 2) + 'px' };
+  document.querySelectorAll('.pj-lv').forEach(box => {
+    const b = box.querySelector('.pj-try'); if (!b) return;
+    b.addEventListener('click', () => {
+      if (!box.querySelector('iframe')) { const f = document.createElement('iframe'); f.src = box.dataset.src; f.title = 'Dashboard'; box.appendChild(f) }
+      box.classList.add('live'); fit(box);
+    });
+    addEventListener('resize', () => fit(box)); document.addEventListener('slidechange', () => setTimeout(() => fit(box), 40));
+  });
 })();

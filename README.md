@@ -20,3 +20,4 @@ Each published version is a commit and a tag (`v5.26`, `v5.27`, …). Earlier ve
 | v5.26 | Photo on About, "How I use AI" with a Power BI case, a smaller "Ask me" with fixed questions; visit counting on (GA4 + Clarity, asks first in Europe); downloadable CVs without phone number. |
 | v5.26.1 | New address: diegocayupil.github.io (GitHub user renamed). |
 | v5.27 | Home: "From problem to decision" with a one-page OTIF dashboard; Projects: the fill-rate case step by step (plus the full case, in Spanish) and nine cases coming soon; Contact: one contact view and a new message composer. |
+| v5.28 | Home: the dashboard as a real report and a plainer sentence; What I solve: pain 01 no longer repeats pain 04; Projects: index with Part 1 and Part 2, each step told as "I get → I deliver" with guided visuals (full case removed for now); Contact: quick questions redone; CV with Portfolio first. CSS and JS carry the version to avoid stale caches. |
