@@ -21,14 +21,17 @@ const CLARITY_ID = 'zf3mzjfpig';
   const page = root.dataset.page || (location.pathname.split('/').pop().replace('.html', '') || 'index');
   const tz = T.tz || (Intl.DateTimeFormat().resolvedOptions().timeZone || '');
   const europa = /^Europe\//.test(tz) || /^Atlantic\/(Canary|Madeira|Azores|Faroe|Reykjavik)$/.test(tz);
-  let elegido = null; try { elegido = localStorage.getItem(KEY) } catch (e) {}
+  let elegido = T.acepta ? 'si' : null; try { if (!elegido) elegido = localStorage.getItem(KEY) } catch (e) {}   // T.acepta: solo la prueba local
 
   // ── pie: una línea de privacidad, al final de la última vista ───────────────
   function pie() {
     const last = [...document.querySelectorAll('.slide')].pop() || document.body;
     const p = document.createElement('p'); p.className = 'medir-pie';
-    p.textContent = lang() === 'es' ? 'Este sitio cuenta visitas; sin publicidad.' : 'This site counts visits. No ads.';
+    const es = lang() === 'es';
+    p.innerHTML = (es ? 'Este sitio mide visitas solo si aceptas; sin publicidad. ' : 'This site measures visits only if you accept. No ads. ')
+      + '<button type="button" class="medir-cambiar" style="font:inherit;color:inherit;background:none;border:0;padding:0;text-decoration:underline;cursor:pointer;pointer-events:auto">' + (es ? 'Cambiar' : 'Change') + '</button>';
     p.style.cssText = 'position:absolute;left:0;right:0;bottom:10px;margin:0;text-align:center;font:500 11px/1.4 system-ui,sans-serif;opacity:.62;color:inherit;pointer-events:none;z-index:2';
+    p.querySelector('button').addEventListener('click', () => { try { localStorage.removeItem(KEY) } catch (e) {} if (!document.querySelector('.medir-aviso')) aviso() });
     if (getComputedStyle(last).position === 'static') last.style.position = 'relative';
     last.appendChild(p);
   }
@@ -38,8 +41,8 @@ const CLARITY_ID = 'zf3mzjfpig';
     const es = lang() === 'es', d = document.createElement('div');
     d.className = 'medir-aviso'; d.setAttribute('role', 'dialog'); d.setAttribute('aria-label', es ? 'Aviso de medición' : 'Analytics notice');
     d.style.cssText = 'position:fixed;left:16px;bottom:16px;z-index:9999;max-width:340px;padding:14px 16px;border-radius:12px;background:#fff;color:#141A26;box-shadow:0 8px 30px rgba(0,0,0,.25);font:500 14px/1.45 system-ui,sans-serif';
-    d.innerHTML = '<p style="margin:0 0 10px">' + (es ? '¿Me dejas contar tu visita? Solo veo qué vistas se miran, sin tu nombre y sin publicidad.'
-      : 'May I count your visit? I only see which views are read: no name, no ads.') + '</p><div style="display:flex;gap:8px">'
+    d.innerHTML = '<p style="margin:0 0 10px">' + (es ? '¿Me dejas medir tu visita? Veo qué vistas y pasos se miran, sin tu nombre y sin publicidad.'
+      : 'May I measure your visit? I only see which views and steps are read: no name, no ads.') + '</p><div style="display:flex;gap:8px">'
       + '<button type="button" data-v="si" style="flex:1;padding:8px;border-radius:8px;border:0;background:#1F4E8C;color:#fff;font:600 14px system-ui,sans-serif;cursor:pointer">' + (es ? 'Aceptar' : 'Accept') + '</button>'
       + '<button type="button" data-v="no" style="flex:1;padding:8px;border-radius:8px;border:1px solid #9AA4B5;background:#fff;color:#141A26;font:600 14px system-ui,sans-serif;cursor:pointer">' + (es ? 'No, gracias' : 'No, thanks') + '</button></div>';
     d.addEventListener('click', e => { const b = e.target.closest('button'); if (!b) return; try { localStorage.setItem(KEY, b.dataset.v) } catch (x) {} d.remove(); if (b.dataset.v === 'si') medir() });
@@ -86,6 +89,9 @@ const CLARITY_ID = 'zf3mzjfpig';
       ev('view_change', { view_index: sl + 1, view_step: step, view_name: nombre(sl), views_total: N });
       const ns = +(slides[sl] && slides[sl].dataset.steps) || 1;
       if (!vioUltima && sl === N - 1 && step >= ns) { vioUltima = true; ev('view_last', { views_total: N }) }
+      // v5.29: los pasos de un proyecto, con su nombre (para ver hasta dónde llega cada visita)
+      const s = slides[sl]; if (s && s.classList.contains('pj')) { const b = s.querySelector('.pj-rail button[data-st="' + step + '"]'), t = b && (b.querySelector('.' + lang()) || b);
+        ev('project_step', { project: s.id, step: step, step_name: t ? t.textContent.trim().slice(0, 60) : String(step), steps_total: ns }) }
     }
     document.addEventListener('slidechange', e => { const d = e.detail || {}; if (typeof d.sl === 'number') vista(d.sl, d.step) });
     // la vista con la que se abre la página (el sitio la anuncia antes de que este archivo cargue): se anota al tiro,
@@ -100,17 +106,23 @@ const CLARITY_ID = 'zf3mzjfpig';
       if (a) {
         const h = a.getAttribute('href') || '';
         if (/\/cv\/[^/]*\.pdf$/i.test(h)) ev('cv_download', { cv_lang: /-ES\.pdf$/i.test(h) ? 'es' : 'en' });
-        else if (/^mailto:/i.test(h)) ev('contact_click', { method: 'email' });          // la dirección no se envía
+        else if (/^mailto:/i.test(h)) ev('contact_click', { method: a.classList.contains('cw-open') ? 'composer' : 'email' });   // la dirección no se envía
         else if (/linkedin\.com/i.test(h)) ev('contact_click', { method: 'linkedin' });
         else if (/github\.com/i.test(h)) ev('contact_click', { method: 'github' });
-        else if (/(margin-case|caso-margen)\.html/.test(h)) ev('project_open', { project: 'margin-case' });
+        else if (/(projects|proyectos)\.html#c\d+/.test(h)) ev('project_open', { project: h.split('#')[1] });
       }
       if (b && b.dataset.lang && b.dataset.lang !== lang()) ev('lang_switch', { to: b.dataset.lang });
+      if (b && b.matches('.pj-lvbtn, .pj-try')) ev('live_dashboard', { where: b.classList.contains('pj-lvbtn') ? 'header' : 'step' });
+      if (b && b.matches('.pj-go1')) ev('project_start', {});
+      if (b && b.matches('.qx-t')) ev('pain_select', { pain: (+b.dataset.p || 0) + 1 });
+      if (b && b.matches('.cw-copy')) ev('contact_click', { method: 'copy_message' });
+      if (b && b.matches('.mailline .copy')) ev('contact_click', { method: 'copy_email' });
       if (b && b.closest('.ask-sg, .aq-qs')) {            // .ask-sg hasta la v5.25; .aq-qs desde la v5.26 (solo preguntas fijas)                    // solo las preguntas escritas por Diego, nunca lo que tipea la persona
         const v = b.querySelector('.' + lang()) || b; ev('ask_question', { question: (v.textContent || '').replace('→', '').trim().slice(0, 100) });
       }
     }, true);
-    document.addEventListener('submit', e => { if (e.target.closest('.ask-f')) ev('ask_typed', {}) }, true);   // se cuenta que preguntó; el texto no sale del navegador
+    document.addEventListener('submit', e => { if (e.target.closest('.ask-f')) ev('ask_typed', {}) }, true);
+    document.addEventListener('toggle', e => { const d = e.target; if (d.open && d.closest && d.closest('.cw-faq')) { const q = d.querySelector('summary .' + lang()) || d.querySelector('summary'); ev('faq_open', { question: (q.textContent || '').trim().slice(0, 80) }) } }, true);   // se cuenta que preguntó; el texto no sale del navegador
     // modo claro / oscuro: solo cuando cambia después de abrir la página
     let m = mode(), t0 = performance.now();
     new MutationObserver(() => { const n = mode(); if (n !== m) { m = n; if (performance.now() - t0 > 1500) ev('mode_switch', { to: n }) } }).observe(root, { attributes: true, attributeFilter: ['data-ui'] });
@@ -118,7 +130,8 @@ const CLARITY_ID = 'zf3mzjfpig';
 
   function iniciar() {
     pie();
-    if (europa && elegido !== 'si') { if (elegido !== 'no') aviso(); return }
+    // v5.29 (pedido de Diego): se pregunta a todos, no solo en Europa; nada se carga antes de aceptar
+    if (elegido !== 'si') { if (elegido !== 'no') aviso(); return }
     medir();
   }
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', iniciar); else iniciar();

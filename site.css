@@ -5098,3 +5098,88 @@ html.cap .pj2 .pj-pan .pj-leg li{animation:none!important}
   .cw-grid{grid-template-columns:minmax(0,1fr) minmax(0,1.08fr)}
   .cw-grid .cw-in{grid-column:1;grid-row:1;order:0}.cw-grid .cw-f2{grid-column:1;grid-row:2;order:0}.cw-grid .cw-out{grid-column:2;grid-row:1/span 2;order:0}
 }
+
+/* ═══════════ V5.29 · 2 · Portada: herramientas en fichas, números en la línea de arriba y en el informe ═══════════ */
+.hero .stack8{display:none}
+.stack9{list-style:none;display:flex;flex-wrap:wrap;gap:6px;margin:-12px 0 24px;padding:0;max-width:560px}
+.stack9 li{font-family:var(--mono);font-size:11.5px;font-weight:500;line-height:1;padding:5px 9px;border:1px solid #D5DBE4;border-radius:999px;color:#475467;background:rgba(255,255,255,.7)}
+html[data-ui="dark"] .stack9 li{border-color:rgba(255,255,255,.2);color:#D3D9E3;background:rgba(255,255,255,.06)}
+.eb9 [data-z]{display:inline-flex;align-items:center;gap:7px;cursor:default;transition:color .2s}
+.ebn{display:inline-grid;place-items:center;width:19px;height:19px;border-radius:50%;background:#1F4E8C;color:#fff;font-family:var(--font);font-style:normal;font-size:10.5px;font-weight:760;letter-spacing:0;transition:transform .2s,box-shadow .2s}
+.eb9 [data-z].on{color:#1F4E8C}.eb9 [data-z].on .ebn{transform:scale(1.12);box-shadow:0 0 0 4px rgba(31,78,140,.18)}
+html[data-ui="dark"] .eb9 [data-z].on{color:#A9C4EC}
+.d9pin{padding:0!important;border:0!important;background:none!important;box-shadow:none!important;right:10px;top:-12px;gap:0}
+.d9pin i{width:23px;height:23px;font-size:11.5px;box-shadow:0 0 0 3px #EEF1F5,0 3px 8px rgba(16,24,40,.22);transition:transform .2s,box-shadow .2s}
+.z1 .d9pin{top:4px;right:4px}
+.d9z:hover .d9pin i,.d9z.on .d9pin i{background:#1F4E8C!important;color:#fff!important;transform:scale(1.12);box-shadow:0 0 0 3px #EEF1F5,0 0 0 7px rgba(31,78,140,.2)}
+.d9q{padding-right:34px}
+
+/* ═══════════ V5.29 · 3 · El dolor 04: una conversación con la IA ═══════════ */
+.qv-chat{display:flex;flex-direction:column;gap:5px;align-items:flex-start;width:100%;max-width:300px;margin:0 auto}
+.qv-chat span{border-radius:13px;padding:6px 11px;font-size:13px;font-weight:600;line-height:1.3;max-width:92%}
+.qv-chat .me{align-self:flex-end;background:#1F4E8C;color:#fff;border-bottom-right-radius:4px}
+.qv-chat .ai{background:#F1F3F6;color:#101828;border-bottom-left-radius:4px;border:1px solid #E2E6EC}
+.qb.a .qv-chat .ai{color:#B4383F;font-family:var(--serif);font-size:17px;padding:4px 12px}
+.qv-chat .ai.ok{background:#EAF6EF;border-color:#CFE6DA;color:#1F5F43}
+
+/* ═══════════ V5.29 · 4 · Sobre mí: la foto con el marco de antes y la trayectoria en una línea ═══════════ */
+html.deck .aboutgrid{grid-template-columns:minmax(0,1.3fr) minmax(0,.62fr);column-gap:clamp(28px,5vw,72px);width:auto;max-width:none}
+.aboutgrid .photo,html.deck .aboutgrid .photo{width:min(262px,100%);aspect-ratio:4/5;border-radius:26px;padding:20px;justify-self:start}
+html.flow .aboutgrid .photo{order:0;width:min(220px,60vw);border-radius:22px}
+.aboutgrid .photo .ini{font-size:clamp(56px,6vw,96px)}
+.tray9{list-style:none;display:flex;flex-wrap:wrap;gap:6px 0;margin:4px 0 18px;padding:0;max-width:40rem}
+.tray9 li{display:flex;flex-direction:column;gap:1px;padding:4px 14px 4px 12px;border-left:2px solid #C8D3E3;font-size:13.5px;font-weight:620;color:var(--ink)}
+.tray9 li:last-child{border-left-color:#1F4E8C}
+.tray9 b{font-family:var(--mono);font-size:11px;font-weight:600;color:#1F4E8C;letter-spacing:.04em}
+.tray9 small{font-size:12px;font-weight:500;color:var(--ink2)}
+
+/* ═══════════ V5.29 · 5 · Proyectos: el problema primero, el tablero siempre a mano y los tres tiempos ═══════════ */
+.pj-top{position:relative}
+.pj-lvbtn{position:relative;flex:none;align-self:flex-end;display:inline-flex;align-items:center;gap:9px;font:inherit;font-size:14px;font-weight:700;color:#fff;background:#1F4E8C;border:0;border-radius:999px;padding:10px 18px;cursor:pointer;box-shadow:0 8px 22px rgba(31,78,140,.32);animation:lvPulse 2.4s ease-in-out infinite}
+.pj-lvbtn i{width:9px;height:9px;border-radius:50%;background:#7CE2A8;box-shadow:0 0 0 0 rgba(124,226,168,.7);animation:lvDot 1.6s ease-out infinite}
+.pj-lvbtn:hover{background:#163E73;transform:translateY(-1px)}
+@keyframes lvPulse{0%,100%{box-shadow:0 8px 22px rgba(31,78,140,.32),0 0 0 0 rgba(31,78,140,.35)}50%{box-shadow:0 8px 22px rgba(31,78,140,.32),0 0 0 10px rgba(31,78,140,0)}}
+@keyframes lvDot{0%{box-shadow:0 0 0 0 rgba(124,226,168,.7)}100%{box-shadow:0 0 0 8px rgba(124,226,168,0)}}
+.pj-try{animation:lvPulse 2.4s ease-in-out infinite;font-size:14px;padding:10px 18px}
+html.cap .pj-lvbtn,html.cap .pj-try,html.cap .pj-lvbtn i,html.cap .pj-chip0{animation:none!important}
+.pj-p0 button{color:#1F4E8C!important;opacity:1!important;font-weight:700}
+.pj-p0 button.on{color:#fff!important}
+.pj-p0 button i{border-color:currentColor}
+/* los tres tiempos */
+.pj-bt{list-style:none;margin:0;padding:0;display:grid;gap:8px;max-width:42ch}
+.pj-bt li{position:relative;display:grid;grid-template-columns:24px minmax(0,1fr);column-gap:10px;align-items:start;padding:9px 12px;border-radius:10px;border:1px solid}
+.pj-bt li>i{grid-row:1/3;display:grid;place-items:center;width:24px;height:24px;border-radius:50%;font-style:normal;font-size:12px;font-weight:760;color:#fff}
+.pj-bt small{font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;font-weight:650}
+.pj-bt span{font-size:14.5px;line-height:1.42;font-weight:520;color:#1D2939}
+.pj-bt span b{font-weight:760;color:#0F2A52}
+.pj-bt .p{background:#FDF2F3;border-color:#F1CDD1}.pj-bt .p>i{background:#C0343F}.pj-bt .p small{color:#B4383F}
+.pj-bt .a{background:#EEF3FA;border-color:#C8D8EF}.pj-bt .a>i{background:#1F4E8C}.pj-bt .a small{color:#1F4E8C}
+.pj-bt .r{background:#EDF7F1;border-color:#CFE6DA}.pj-bt .r>i{background:#1F7A55}.pj-bt .r small{color:#1F7A55}.pj-bt .r span b{color:#14532D}
+html.deck .pj3 .pj-pan.on .pj-bt li{animation:pvIn .5s ease both;animation-delay:calc(.15s + var(--k) * .35s)}
+html.cap .pj3 .pj-pan .pj-bt li{animation:none!important}
+.pj3 .pin i{background:#1F4E8C}
+.pj3 .pj-pan.on .pin{animation-delay:calc(.15s + var(--k) * .35s)!important}
+/* los números dentro de las figuras en HTML */
+.nbw,.pv-a,.pv-b,.pv-c,.pv-rev,.pv-rec .st,.pv-no{position:relative}
+.nb{position:absolute;left:-10px;top:-10px;z-index:2;display:grid;place-items:center;width:22px;height:22px;border-radius:50%;background:#1F4E8C;color:#fff;font-style:normal;font-size:11.5px;font-weight:760;box-shadow:0 0 0 3px #fff}
+.pv-rec .st .nb{left:-18px;top:50%;transform:translateY(-50%)}
+.pv-no .nb{left:-14px;top:50%;transform:translateY(-50%)}
+/* «El problema» */
+.pj-intro .pj-tx h3{margin-bottom:14px}
+.pj-ctx{margin:0 0 18px;display:grid;gap:10px;max-width:44ch}
+.pj-ctx div{display:grid;gap:2px;padding-left:12px;border-left:2px solid #C8D3E3}
+.pj-ctx div:last-child{border-left-color:#C0343F}
+.pj-ctx dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.pj-ctx dd{margin:0;font-size:14.5px;line-height:1.45;font-weight:520;color:var(--ink)}
+.pj-go1{font-size:14px}
+.pj-lv0 iframe{position:absolute;left:0;top:0;width:1280px;height:720px;border:0;transform-origin:0 0;border-radius:8px}
+.pj-chip0{position:absolute;right:12px;top:12px;z-index:3;font-size:12px;font-weight:700;color:#1F7A55;background:#fff;border:1px solid #CFE6DA;border-radius:999px;padding:4px 11px;pointer-events:none;box-shadow:0 4px 12px rgba(16,24,40,.15);animation:lvPulse2 2.4s ease-in-out infinite}
+@keyframes lvPulse2{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+/* el tablero en grande, desde cualquier paso */
+.pj-modal{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:rgba(10,18,32,.72);backdrop-filter:blur(3px)}
+.pj-modal .box{position:relative;width:min(94vw,calc(86vh * 16 / 9));aspect-ratio:16/9;background:#EEF1F5;border-radius:14px;overflow:hidden;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.pj-modal iframe{position:absolute;left:0;top:0;width:1280px;height:720px;border:0;transform-origin:0 0}
+.pj-modal .x{position:absolute;right:-6px;top:-44px;font:inherit;font-size:14px;font-weight:700;color:#fff;background:none;border:1px solid rgba(255,255,255,.5);border-radius:999px;padding:6px 14px;cursor:pointer}
+@media (max-width:1099px){.pj-lvbtn{align-self:flex-start}}
+@media (max-width:640px){.pj-bt span{font-size:14px}.pj-lv0 iframe{display:none}.pj-lv0::after{content:'';display:block;aspect-ratio:16/9;background:url(assets/casos/c008/p1.webp) center/cover;border-radius:8px}.pj-chip0{display:none}}
+html[data-ui="dark"] .pj-p0 button:not(.on){color:#B9CEF0!important}

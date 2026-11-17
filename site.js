@@ -191,9 +191,9 @@
     const KEY = 'dc514.modo', ALL = ['claro', 'oscuro'];
     let mode = 'trans', t = 0, night = 'pasa', velo = '2';
     const pref = (q, k, ok, d) => { try { const v = P.get(q) || (k === KEY ? ses.get('modo') : null); return ok.includes(v) ? v : d } catch (e) { return d } };
-    const sysMode = () => matchMedia('(prefers-color-scheme: dark)').matches ? 'oscuro' : 'claro', urlMode = P.get('modo'); let saved = null; try { saved = localStorage.getItem('dc523.modo') } catch (e) {}
+    const sysMode = () => 'claro', urlMode = P.get('modo'); let saved = null; try { saved = sessionStorage.getItem('dc529.modo') } catch (e) {}
     mode = ALL.includes(urlMode) ? urlMode : ALL.includes(saved) ? saved : sysMode();
-    try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { let s2 = null; try { s2 = localStorage.getItem('dc523.modo') } catch (e) {} if (!ALL.includes(s2) && !ALL.includes(urlMode)) { mode = sysMode(); paint() } }) } catch (e) {} night = pref('noche', 'dc514.noche', ['pasa', 'fija'], 'fija');
+    try { matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { let s2 = null; try { s2 = sessionStorage.getItem('dc529.modo') } catch (e) {} if (!ALL.includes(s2) && !ALL.includes(urlMode)) { mode = sysMode(); paint() } }) } catch (e) {} night = pref('noche', 'dc514.noche', ['pasa', 'fija'], 'fija');
     const okV = v => v !== null && v !== '' && isFinite(+v) && +v >= 1 && +v <= 4;
     try { const v = P.get('velo'); velo = okV(v) ? String(+v) : '1' } catch (e) { velo = '1' }
     let msg = pref('msg', 'dc514.msg', ['halo', 'sombra', 'placa', 'vidrio'], 'sombra'), entra = pref('entra', 'dc514.entra', ['fundido', 'directo', 'cortina', 'foco'], 'directo');
@@ -225,7 +225,7 @@
       $$('#pruebas [data-noche]').forEach(x => x.setAttribute('aria-pressed', x.dataset.noche === night ? 'true' : 'false'));
       $$('.modes button').forEach(x => x.setAttribute('aria-pressed', x.dataset.m === mode ? 'true' : 'false'));
     }
-    function set(m) { if (!ALL.includes(m) || m === mode) return; mode = m; try { localStorage.setItem('dc523.modo', m) } catch (e) {} paint() }
+    function set(m) { if (!ALL.includes(m) || m === mode) return; mode = m; try { sessionStorage.setItem('dc529.modo', m) } catch (e) {} paint() }
     function setNight(v) { night = v; try { localStorage.setItem('dc514.noche', v) } catch (e) {} paint() }
     function setVelo(v) { velo = String(+v); try { localStorage.setItem('dc514.velo', velo) } catch (e) {} paint() }
     function setMsg(v) { msg = v; try { localStorage.setItem('dc514.msg', v) } catch (e) {} paint() }
@@ -1604,7 +1604,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
   document.querySelectorAll('.pj').forEach(sl => {
     const idx = [...document.querySelectorAll('.slide')].indexOf(sl);
     sl.querySelectorAll('.pj-rail button').forEach(b => b.addEventListener('click', () => {
-      const g = document.querySelector(`.toc li.sub[data-sl="${idx}"]`); if (g && window.__dcGo) window.__dcGo(+g.dataset.pos + +b.dataset.k - 1);
+      const g = document.querySelector(`.toc li.sub[data-sl="${idx}"]`); if (g && window.__dcGo) window.__dcGo(+g.dataset.pos + +b.dataset.k - (sl.classList.contains('pj3') ? 0 : 1));
     }));
   });
   const fit = () => document.querySelectorAll('.pj-live').forEach(box => { const f = box.querySelector('iframe'); if (!f || !box.clientWidth) return; if (getComputedStyle(f).display === 'none') { box.style.height = ''; return } const k = box.clientWidth / 1280; f.style.transform = `scale(${k})`; box.style.height = (720 * k) + 'px' });
@@ -1650,5 +1650,34 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
       box.classList.add('live'); fit(box);
     });
     addEventListener('resize', () => fit(box)); document.addEventListener('slidechange', () => setTimeout(() => fit(box), 40));
+  });
+})();
+
+/* ═══════════ V5.29 · la línea de arriba y el informe de la portada se encienden juntos ═══════════ */
+(function () {
+  const d = document.querySelector('.d9'), eb = document.querySelector('.eb9'); if (!d || !eb) return;
+  const ws = [...eb.querySelectorAll('[data-z]')], zs = [...d.querySelectorAll('.d9z')];
+  const on = z => { ws.forEach(w => w.classList.toggle('on', w.dataset.z === z)); zs.forEach(x => x.classList.toggle('on', x.dataset.z === z)); if (z) d.dataset.on = z; else d.removeAttribute('data-on') };
+  ws.forEach(w => { w.addEventListener('mouseenter', () => on(w.dataset.z)); w.addEventListener('mouseleave', () => on(null)) });
+  zs.forEach(z => { z.addEventListener('mouseenter', () => ws.forEach(w => w.classList.toggle('on', w.dataset.z === z.dataset.z))); z.addEventListener('mouseleave', () => ws.forEach(w => w.classList.remove('on'))) });
+})();
+/* ═══════════ V5.29 · Proyectos: el tablero en vivo en «El problema», el botón fijo que lo abre en grande y «Empezar por el paso 1» ═══════════ */
+(function () {
+  const fit = (box, f) => { if (!f || !box.clientWidth) return; const r = box.getBoundingClientRect(), k = Math.min(r.width / 1280, r.height / 720);
+    f.style.transform = `scale(${k})`; f.style.left = ((r.width - 1280 * k) / 2) + 'px'; f.style.top = ((r.height - 720 * k) / 2) + 'px' };
+  document.querySelectorAll('.pj-lv0').forEach(box => { const f = box.querySelector('iframe'); const go = () => fit(box, f); go(); addEventListener('resize', go); document.addEventListener('slidechange', () => setTimeout(go, 40)) });
+  document.querySelectorAll('.pj3').forEach(sl => {
+    const idx = [...document.querySelectorAll('.slide')].indexOf(sl), g = () => document.querySelector(`.toc li.sub[data-sl="${idx}"]`);
+    const b1 = sl.querySelector('.pj-go1'); if (b1) b1.addEventListener('click', () => { const x = g(); if (x && window.__dcGo) window.__dcGo(+x.dataset.pos + 1) });
+    const lb = sl.querySelector('.pj-lvbtn'); if (!lb) return;
+    lb.addEventListener('click', () => {
+      const m = document.createElement('div'); m.className = 'pj-modal'; m.setAttribute('role', 'dialog'); m.setAttribute('aria-label', document.documentElement.lang === 'es' ? 'Tablero en vivo' : 'Live dashboard');
+      m.innerHTML = `<div class="box"><button class="x" type="button">${document.documentElement.lang === 'es' ? 'Cerrar ✕' : 'Close ✕'}</button><iframe src="${lb.dataset.src}" title="Dashboard"></iframe></div>`;
+      document.body.appendChild(m); const box = m.querySelector('.box'), f = m.querySelector('iframe'), go = () => fit(box, f); go(); addEventListener('resize', go);
+      const close = () => { removeEventListener('resize', go); m.remove(); lb.focus() };
+      m.addEventListener('click', e => { if (e.target === m || e.target.closest('.x')) close() });
+      document.addEventListener('keydown', function k(e) { if (e.key === 'Escape') { close(); document.removeEventListener('keydown', k) } });
+      m.querySelector('.x').focus();
+    });
   });
 })();
