@@ -1,6 +1,6 @@
 # Diego Cayupil
 
-> Data analyst in Santiago, Chile. SQL (BigQuery), Power BI and Python. I define the problem, review the data, model it once, analyse it and communicate it, so the dashboard and the AI give the same answer. Open to senior data analyst and BI roles, in Santiago or remote. English and Spanish.
+> Data analyst in Santiago, Chile. SQL (BigQuery), Power BI and Python. From problem to decision: I clarify what needs deciding, make the data trustworthy and tell the finding so the team can act. Open to senior data analyst and BI roles, in Santiago or remote. English and Spanish.
 
 The site is a set of static pages. Every page exists in English (at the root) and in Spanish (under /es/). The EN / ES switch moves between the two.
 
@@ -8,8 +8,7 @@ The site is a set of static pages. Every page exists in English (at the root) an
 
 - [Home](https://diegocayupil.github.io/): what I do, what I solve, how I work, how I use AI, projects and contact.
 - [About](https://diegocayupil.github.io/about.html): my career, how I think, the tools I use and what I am doing this month.
-- [Projects](https://diegocayupil.github.io/projects.html): 10 cases grouped by 6 kinds of business question. Simulated data, fictional companies; one case is open, the rest are in review or being improved.
-- [Case: true margin by product](https://diegocayupil.github.io/margin-case.html): which products sell below their true cost. Simulated data.
+- [Projects](https://diegocayupil.github.io/projects.html): business cases end to end. The first one is complete (fill rate to supermarket chains, seven steps from the first meeting to the plan; full case in Spanish at casos/c008/index.html); nine more are on the way. Simulated data, fictional companies.
 - [How this site is built](https://diegocayupil.github.io/how-this-site-is-built.html): the loop, the checks and the tools, with their date.
 - [Contact](https://diegocayupil.github.io/contact.html)
 

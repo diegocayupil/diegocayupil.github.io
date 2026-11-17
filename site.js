@@ -129,7 +129,7 @@
 
   /* ── Tablero de la portada ── */
   const dash = $('.dash');
-  if (dash) {
+  if (dash && $('.kpis', dash)) {
     const W = ['S35', 'S36', 'S37', 'S38', 'S39', 'S40', 'S41', 'S42', 'S43', 'S44', 'S45', 'S46'];
     const M = {
       ventas: { r: [362, 371, 368, 384, 379, 396, 402, 412], f: [418, 424, 431, 437], b: [8, 12, 16, 20], u: 'M', note: 3, nt: ['canal online', 'online channel'], h: ['Las ventas van 4,2 % sobre la meta', 'Sales are 4.2% above target'], v: 412, d: [['+4,2 % vs meta', '+4.2% vs target'], 'up'], k: ['Ventas', 'Sales'], q: ['¿Cómo van las ventas?', 'How are sales doing?'] },
@@ -882,6 +882,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     /* Si el índice no cabe en la pantalla, solo se abren los pasos de la vista actual */
     const need = toc.classList.contains('compact'); if (need) toc.classList.remove('compact');
     if (toc.classList.contains('compact')) { let ch = need; tocItems.forEach(li => { if (!li.classList.contains('sub')) return; const hide = +li.dataset.sl !== p.sl; if (li.hidden !== hide) { li.hidden = hide; ch = true } }); if (ch) drawStem() } else if (need) { tocItems.forEach(li => li.hidden = false); drawStem() }
+    if (toc.dataset.solo) { let ch = false; tocItems.forEach(li => { if (!li.classList.contains('sub')) return; const hide = +li.dataset.sl !== p.sl; if (li.hidden !== hide) { li.hidden = hide; ch = true } }); if (ch) drawStem() }
     { const av = innerHeight - 122, was = toc.className; toc.classList.remove('tight', 'tighter'); if (toc.offsetHeight > av) { toc.classList.add('tight'); if (toc.offsetHeight > av) toc.classList.add('tighter') } if (toc.className !== was) drawStem(); toc.style.setProperty('--th', toc.offsetHeight + 'px') }
     const st = $('.stem', toc); if (st && st._ys) { const li = tocItems.findIndex(x => x.classList.contains('on')); const y = st._ys[Math.max(0, li)] || 0; $('.s1', st).style.strokeDashoffset = (1 - y / st._H).toFixed(3) }
     placeSun(); setTimeout(placeSun, 560);
@@ -1584,4 +1585,44 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     document.addEventListener('click', e => { const p = e.composedPath(); if (!pn.hidden && !p.includes(pn) && !p.includes(btn)) { pn.hidden = true; btn.setAttribute('aria-expanded', 'false') } });
     pn.addEventListener('click', e => { const a = e.target.closest('a'); if (a && !a.hasAttribute('download') && !/^mailto:/.test(a.getAttribute('href'))) { pn.hidden = true; btn.setAttribute('aria-expanded', 'false') } });
   })();
+})();
+
+/* ═══════════ V5.27 · el dashboard de la portada: tocar una zona la deja a pleno y apaga las otras ═══════════ */
+(function () {
+  const d = document.querySelector('.d8'); if (!d) return;
+  const zs = [...d.querySelectorAll('.d8z')];
+  zs.forEach(z => z.addEventListener('click', () => {
+    const on = z.classList.contains('on'); zs.forEach(x => x.classList.remove('on'));
+    if (on) d.removeAttribute('data-on'); else { z.classList.add('on'); d.dataset.on = z.dataset.z }
+  }));
+  document.addEventListener('click', e => { if (!d.contains(e.target)) { zs.forEach(x => x.classList.remove('on')); d.removeAttribute('data-on') } });
+})();
+/* ═══════════ V5.27 · Proyectos: el riel de pasos mueve la vista, y el tablero en vivo se escala a su marco ═══════════ */
+(function () {
+  document.querySelectorAll('.pj').forEach(sl => {
+    const idx = [...document.querySelectorAll('.slide')].indexOf(sl);
+    sl.querySelectorAll('.pj-rail button').forEach(b => b.addEventListener('click', () => {
+      const subs = document.querySelectorAll(`.toc li.sub[data-sl="${idx}"] a`), a = subs[+b.dataset.k - 1]; if (a) a.click();
+    }));
+  });
+  const fit = () => document.querySelectorAll('.pj-live').forEach(box => { const f = box.querySelector('iframe'); if (!f || !box.clientWidth) return; if (getComputedStyle(f).display === 'none') { box.style.height = ''; return } const k = box.clientWidth / 1280; f.style.transform = `scale(${k})`; box.style.height = (720 * k) + 'px' });
+  fit(); addEventListener('resize', fit); document.addEventListener('slidechange', () => setTimeout(fit, 30));
+})();
+/* ═══════════ V5.27 · Contacto: el redactor arma el mensaje mientras se escribe; abre el correo o lo copia (no se envía nada desde aquí) ═══════════ */
+(function () {
+  const box = document.querySelector('.ct-w'); if (!box) return;
+  const tas = [...box.querySelectorAll('textarea[data-k]')], open = box.querySelector('.cw-open'), cp = box.querySelector('.cw-copy');
+  const mail = (open.getAttribute('href') || '').slice(7).split('?')[0], en = () => document.documentElement.lang === 'en';
+  const val = k => tas[k - 1].value.trim();
+  const text = () => { const v = [1, 2, 3].map(k => val(k) || '…');
+    return en() ? `Hi Diego,\n\nWhat hurts: ${v[0]}\nWho it hurts: ${v[1]}\nIf I knew, I’d decide: ${v[2]}\n\nBest` : `Hola Diego:\n\nMe duele: ${v[0]}\nLe pasa a: ${v[1]}\nSi lo supiera, decidiría: ${v[2]}\n\nSaludos` };
+  const draw = () => {
+    box.querySelectorAll('.cw-body i[data-o]').forEach(i => { const k = +i.dataset.o, v = val(k); i.textContent = v || tas[k - 1].placeholder; i.classList.toggle('ph', !v) });
+    open.href = `mailto:${mail}?subject=${encodeURIComponent(en() ? 'A data problem' : 'Un problema de datos')}&body=${encodeURIComponent(text())}`;
+  };
+  tas.forEach(t => t.addEventListener('input', draw)); document.addEventListener('langchange', () => setTimeout(draw, 0)); draw();
+  cp.addEventListener('click', () => { const o = cp.innerHTML, ok = () => { cp.innerHTML = en() ? 'Copied ✓' : 'Copiado ✓'; setTimeout(() => cp.innerHTML = o, 1600) };
+    try { navigator.clipboard.writeText(text()).then(ok, ok) } catch (e) { ok() } });
+  /* las preguntas: una abierta a la vez */
+  const ds = [...box.querySelectorAll('.cw-faq details')]; ds.forEach(d => d.addEventListener('toggle', () => { if (d.open) ds.forEach(x => { if (x !== d) x.open = false }) }));
 })();
