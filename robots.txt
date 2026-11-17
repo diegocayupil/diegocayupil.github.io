@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://diegocayupil2-create.github.io/sitemap.xml
+Sitemap: https://diegocayupil.github.io/sitemap.xml

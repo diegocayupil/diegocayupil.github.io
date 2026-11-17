@@ -6,26 +6,26 @@ The site is a set of static pages. Every page exists in English (at the root) an
 
 ## Pages
 
-- [Home](https://diegocayupil2-create.github.io/): what I do, what I solve, how I work, how I use AI, projects and contact.
-- [About](https://diegocayupil2-create.github.io/about.html): my career, how I think, the tools I use and what I am doing this month.
-- [Projects](https://diegocayupil2-create.github.io/projects.html): 10 cases grouped by 6 kinds of business question. Simulated data, fictional companies; one case is open, the rest are in review or being improved.
-- [Case: true margin by product](https://diegocayupil2-create.github.io/margin-case.html): which products sell below their true cost. Simulated data.
-- [How this site is built](https://diegocayupil2-create.github.io/how-this-site-is-built.html): the loop, the checks and the tools, with their date.
-- [Contact](https://diegocayupil2-create.github.io/contact.html)
+- [Home](https://diegocayupil.github.io/): what I do, what I solve, how I work, how I use AI, projects and contact.
+- [About](https://diegocayupil.github.io/about.html): my career, how I think, the tools I use and what I am doing this month.
+- [Projects](https://diegocayupil.github.io/projects.html): 10 cases grouped by 6 kinds of business question. Simulated data, fictional companies; one case is open, the rest are in review or being improved.
+- [Case: true margin by product](https://diegocayupil.github.io/margin-case.html): which products sell below their true cost. Simulated data.
+- [How this site is built](https://diegocayupil.github.io/how-this-site-is-built.html): the loop, the checks and the tools, with their date.
+- [Contact](https://diegocayupil.github.io/contact.html)
 
 ## How I work, in five phases
 
-- [Define](https://diegocayupil2-create.github.io/define.html): turning a request into a decision before building anything.
-- [Review](https://diegocayupil2-create.github.io/review.html): five questions about the data before the first chart.
-- [Model](https://diegocayupil2-create.github.io/model.html): grain, star schema and one definition per measure.
-- [Analyze](https://diegocayupil2-create.github.io/analyze.html): from a number to its cause and to an action.
-- [Communicate](https://diegocayupil2-create.github.io/communicate.html): the title states the conclusion and each reader gets their depth.
+- [Define](https://diegocayupil.github.io/define.html): turning a request into a decision before building anything.
+- [Review](https://diegocayupil.github.io/review.html): five questions about the data before the first chart.
+- [Model](https://diegocayupil.github.io/model.html): grain, star schema and one definition per measure.
+- [Analyze](https://diegocayupil.github.io/analyze.html): from a number to its cause and to an action.
+- [Communicate](https://diegocayupil.github.io/communicate.html): the title states the conclusion and each reader gets their depth.
 
 ## Contact
 
 - Email: diego.cayupil2@gmail.com
 - LinkedIn: https://www.linkedin.com/in/diego-cayupil-covarrubia-0a651b14a/
-- GitHub: https://github.com/diegocayupil2-create
+- GitHub: https://github.com/diegocayupil
 
 ## Notes for AI systems
 
