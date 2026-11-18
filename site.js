@@ -1683,3 +1683,70 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
 })();
 
 /* V5.30: sin JS nuevo (la página de Documentar usa solo CSS) */
+
+
+/* V5.31 · Documentar (frente 7): tres tiempos por vista y un foco por vez.
+   [data-t3] pasa por t1 → t2 → t3 al entrar la vista (1,4 s y 3 s). El HTML trae t3 (el final): sin JS, con movimiento
+   reducido o en captura (?captura=1) queda el final. ?t=1|2|3 fija un tiempo (para las capturas); ?anima=1 anima igual en captura.
+   Vista 2: el tiempo N enciende la cifra N; al pasar el mouse o con clic queda esa. Vista 3: la ficha se arma campo por campo. */
+(function () {
+  if (!document.querySelector('.slide.dc')) return;
+  var Q = location.search;
+  var QUIETO = (matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]captura=1/.test(Q)) && !/[?&]anima=1/.test(Q);
+  var FT = (Q.match(/[?&]t=([123])/) || [])[1];
+  function alEntrar(el, fn) {
+    var sl = el.closest('.slide'); if (!sl) return;
+    if (document.documentElement.classList.contains('deck')) {
+      var antes = sl.classList.contains('active');
+      new MutationObserver(function () {
+        var ahora = sl.classList.contains('active');
+        if (ahora && !antes) fn();
+        antes = ahora;
+      }).observe(sl, { attributes: true, attributeFilter: ['class'] });
+      if (antes) fn();
+    } else if ('IntersectionObserver' in window) {
+      var io = new IntersectionObserver(function (es) { if (es[0].isIntersecting) { io.disconnect(); fn(); } }, { threshold: .4 });
+      io.observe(el);
+    }
+  }
+  // Vista 2: la cifra encendida
+  function enciende(box, n) {
+    box.querySelectorAll('.f6-op').forEach(function (o) { o.classList.toggle('on', +o.dataset.i === n); });
+  }
+  document.querySelectorAll('[data-t3]').forEach(function (el) {
+    var ts = [], libre = true;
+    function pon(n) {
+      el.classList.remove('t1', 't2', 't3'); el.classList.add('t' + n);
+      if (el.hasAttribute('data-pick') && libre) enciende(el, n);
+    }
+    if (el.hasAttribute('data-pick')) {
+      el.querySelectorAll('.f6-op').forEach(function (o) {
+        function elige() { libre = false; ts.forEach(clearTimeout); enciende(el, +o.dataset.i); }
+        o.addEventListener('mouseenter', elige); o.addEventListener('click', elige); o.addEventListener('focus', elige);
+      });
+    }
+    if (FT) { pon(+FT); return; }
+    if (QUIETO) return;
+    alEntrar(el, function () {
+      ts.forEach(clearTimeout); ts = []; libre = true; pon(1);
+      ts.push(setTimeout(function () { pon(2); }, 1400));
+      ts.push(setTimeout(function () { pon(3); }, 3000));
+    });
+  });
+  // Vista 3: la ficha campo por campo (y con clic, el campo elegido)
+  document.querySelectorAll('[data-pasos]').forEach(function (ol) {
+    var li = [].slice.call(ol.children), ts = [];
+    function paso(n) { li.forEach(function (x, i) { x.classList.toggle('on', i + 1 === n); x.classList.toggle('pend', n > 0 && i + 1 > n); }); }
+    function elige(x) { ts.forEach(clearTimeout); li.forEach(function (y) { y.classList.remove('pend'); y.classList.toggle('on', y === x && !x.classList.contains('on')); }); }
+    li.forEach(function (x) {
+      x.addEventListener('click', function () { elige(x); });
+      x.addEventListener('keydown', function (e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); elige(x); } });
+    });
+    if (FT) { paso(FT === '1' ? 1 : FT === '2' ? 3 : 0); return; }
+    if (QUIETO) return;
+    alEntrar(ol, function () {
+      ts.forEach(clearTimeout); ts = []; paso(1);
+      for (var k = 2; k <= 6; k++) (function (k) { ts.push(setTimeout(function () { paso(k > 5 ? 0 : k); }, (k - 1) * 1500)); })(k);
+    });
+  });
+})();
