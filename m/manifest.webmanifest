@@ -1,0 +1,17 @@
+{
+  "name": "Diego Cayupil · Analista de datos",
+  "short_name": "Diego Cayupil",
+  "description": "Portafolio de Diego Cayupil, analista de datos, pensado para el teléfono.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#F5F7FA",
+  "theme_color": "#F5F7FA",
+  "lang": "es",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -9,6 +9,7 @@ Live at **https://diegocayupil.github.io/** · English at the root, Spanish unde
 - The site is written and reviewed with Claude Code; a script checks every view at seven screen sizes, in light and dark mode, before each version.
 - Fonts (Geist, Geist Mono, Shippori Mincho, Caveat; SIL Open Font License) are served from this repository.
 - `assets/medir.js` counts visits with Google Analytics 4 (no ads, no Google signals). It respects Global Privacy Control and asks first to visitors in Europe.
+- `m/` is a mobile version in progress (a mockup): one app-like page where every view fits the phone screen and you move by tapping — five tabs, the case told as stories, each phase as four swipeable cards, contact as three questions. Spanish and English, same fonts, colours and `medir.js`. Texts live in `m/contenido.js`. It is not linked from the site yet and is marked `noindex`: open `/m/` to try it.
 
 ## Versions
 Each published version is a commit and a tag (`v5.26`, `v5.27`, …). Earlier versions were built and reviewed locally; the table keeps what each one changed.
