@@ -1681,3 +1681,5 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     });
   });
 })();
+
+/* V5.30: sin JS nuevo (la página de Documentar usa solo CSS) */

@@ -19,6 +19,7 @@ The site is a set of static pages. Every page exists in English (at the root) an
 - [Model](https://diegocayupil.github.io/model.html): grain, star schema and one definition per measure.
 - [Analyze](https://diegocayupil.github.io/analyze.html): from a number to its cause and to an action.
 - [Communicate](https://diegocayupil.github.io/communicate.html): the title states the conclusion and each reader gets their depth.
+- [Document](https://diegocayupil.github.io/document.html): metric cards, data dictionary, decision log and README, written with AI and checked against the code.
 
 ## Contact
 
