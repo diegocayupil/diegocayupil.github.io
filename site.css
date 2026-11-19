@@ -5560,3 +5560,7 @@ button.f6-op{font:inherit;text-align:left;cursor:pointer}
 .dc-txt .nolee{color:#737985}
 @media (max-width:1250px){.dc .f6-rail a:not(.on) span{display:none !important}.dc .f6-rail a+a::before{width:14px;margin:0 6px}}
 .dc code span{white-space:nowrap}
+
+/* ═══════════ V5.32 · Proyectos: «Tablero en vivo» abre el laboratorio del c008 (tres hilos y recomendaciones), a casi toda la pantalla ═══════════ */
+.pj-modal .box:has(iframe[src$="laboratorio.html"]){width:min(96vw,1640px);height:min(90vh,1000px);aspect-ratio:auto;background:#F4F5F8}
+.pj-modal iframe[src$="laboratorio.html"]{left:0!important;top:0!important;width:100%!important;height:100%!important;transform:none!important}

@@ -1750,3 +1750,10 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     });
   });
 })();
+
+/* ═══════════ V5.32 · «Tablero en vivo» del c008: el laboratorio (tres hilos y recomendaciones) en pantallas anchas; en el celular, el tablero solo ═══════════ */
+(function () {
+  const lb = document.querySelector('.pj-lvbtn[data-lab-src]'); if (!lb) return;
+  const pon = () => { lb.dataset.src = innerWidth >= 900 ? lb.dataset.labSrc : lb.dataset.tabSrc };
+  pon(); addEventListener('resize', pon);
+})();
