@@ -1757,3 +1757,45 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
   const pon = () => { lb.dataset.src = innerWidth >= 900 ? lb.dataset.labSrc : lb.dataset.tabSrc };
   pon(); addEventListener('resize', pon);
 })();
+
+
+/* V5.33 · Herramientas (frente 8): cada nivel es una vista con un paso por función (data-steps). site.js enciende [data-st] del paso
+   (botón y ejemplo) y avisa con «slidechange»; aquí el ejemplo se cuenta en tres tiempos: t1 el antes · t2 el después (0,9 s) ·
+   t3 lo que importa (2 s). Los botones de función, la escalera de niveles y los enlaces de la portada mueven el sitio al paso, igual que el índice.
+   El HTML trae el final (t3). Movimiento reducido o captura (?captura=1): queda el final. ?t=1|2|3 fija un tiempo. */
+(function () {
+  if (!document.querySelector('.slide.hz')) return;
+  var Q = location.search;
+  var QUIETO = (matchMedia('(prefers-reduced-motion: reduce)').matches || /[?&]captura=1/.test(Q)) && !/[?&]anima=1/.test(Q);
+  var FT = (Q.match(/[?&]t=([123])/) || [])[1];
+  var slides = [].slice.call(document.querySelectorAll('.slide')), niveles = slides.filter(function (s) { return s.classList.contains('hz-n'); });
+  function tiempos(el) {
+    if (!el) return; (el.__ts || []).forEach(clearTimeout);
+    function pon(n) { el.classList.remove('t1', 't2', 't3'); el.classList.add('t' + n); }
+    if (FT) { pon(+FT); return; }
+    if (QUIETO) { pon(3); return; }
+    pon(1); el.__ts = [setTimeout(function () { pon(2); }, 900), setTimeout(function () { pon(3); }, 2000)];
+  }
+  function marca(sl, k) {   // sin modo presentación (celular): se enciende a mano
+    sl.querySelectorAll('[data-st]').forEach(function (x) { x.classList.toggle('on', +x.dataset.st === k); });
+    tiempos(sl.querySelector('.gd-it[data-st="' + k + '"]'));
+  }
+  function ir(sl, k) {
+    var i = slides.indexOf(sl), li = document.querySelector('.toc li[data-sl="' + i + '"]');
+    if (document.documentElement.classList.contains('deck') && li) {
+      var a = document.querySelector('.toc a[data-go="' + (+li.dataset.pos + k - 1) + '"]'); if (a) { a.click(); return; }
+    }
+    sl.scrollIntoView({ behavior: QUIETO ? 'auto' : 'smooth' }); marca(sl, k);
+  }
+  document.addEventListener('click', function (e) {
+    var b = e.target.closest('.hz .gd-t[data-st]');
+    if (b) { e.preventDefault(); ir(b.closest('.slide'), +b.dataset.st); return; }
+    var l = e.target.closest('.hz a[data-lv][data-k]');
+    if (l) { e.preventDefault(); var sl = niveles[+l.dataset.lv - 1]; if (sl) ir(sl, +l.dataset.k); }
+  });
+  document.addEventListener('slidechange', function (e) {
+    var sl = slides[e.detail.sl]; if (!sl || !sl.classList.contains('hz-n')) return;
+    tiempos(sl.querySelector('.gd-it[data-st="' + (e.detail.step || 1) + '"]'));
+  });
+  if (FT) document.querySelectorAll('.hz .gd-it').forEach(tiempos);
+})();

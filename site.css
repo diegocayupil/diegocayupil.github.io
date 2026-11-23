@@ -5564,3 +5564,182 @@ button.f6-op{font:inherit;text-align:left;cursor:pointer}
 /* ═══════════ V5.32 · Proyectos: «Tablero en vivo» abre el laboratorio del c008 (tres hilos y recomendaciones), a casi toda la pantalla ═══════════ */
 .pj-modal .box:has(iframe[src$="laboratorio.html"]){width:min(96vw,1640px);height:min(90vh,1000px);aspect-ratio:auto;background:#F4F5F8}
 .pj-modal iframe[src$="laboratorio.html"]{left:0!important;top:0!important;width:100%!important;height:100%!important;transform:none!important}
+
+/* ═══ V5.33 · Herramientas (frente 8, 22-nov-2026). Va después de f6.css (ya en site.css desde la v5.31).
+   Guía (.gd) como la lámina del post: arriba a la izquierda la grilla de funciones en tres filas (simple · medio · avanzado; la fila y la
+   función elegidas a pleno, el resto apagado), debajo la descripción y el código; a la derecha la tabla ANTES → DESPUÉS.
+   Tres tiempos al elegir: t1 el antes · t2 el después · t3 lo que importa (filas que salen tachadas, columnas nuevas en verde). ═══ */
+.hz .wrap{width:100%}
+.hz-cab{display:grid;gap:0}
+.hz .f6-h{max-width:32ch}
+.hz-fase{margin:0 0 6px;font-family:var(--mono);font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--f6-mut)}
+.hz small{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--f6-mut)}
+.hz i.d1,.hz i.d2,.hz i.d3{display:inline-block;width:22px;height:8px;flex:none;background:radial-gradient(circle,var(--f6-b) 3px,transparent 3.5px) 0 50%/8px 8px repeat-x;margin-right:7px}
+.hz i.d1{width:8px}.hz i.d2{width:15px}
+
+/* Portada */
+.hz-camino{display:grid;grid-template-columns:repeat(3,minmax(0,1fr) auto) minmax(0,1fr);gap:clamp(6px,.8vw,12px);align-items:stretch;max-width:1120px}
+.hz-pa{display:grid;gap:8px;align-content:start;text-decoration:none;color:var(--f6-ink);transition:border-color .2s,transform .2s}
+.hz-pa b{font-size:clamp(17px,1.5vw,22px);letter-spacing:-.02em;line-height:1.15}
+.hz-pa span{font-size:clamp(13.5px,1.05vw,15.5px);line-height:1.35;color:#3A404B}
+@media (hover:hover){.hz-pa:hover{border-color:var(--f6-b);transform:translateY(-2px)}}
+.hz-ar{align-self:center;display:grid;place-items:center;width:30px;height:30px;border-radius:50%;background:var(--f6-b);color:#fff;font-style:normal;font-size:16px}
+.hz-banda,.hz-niv{display:flex;flex-wrap:wrap;align-items:center;gap:10px 14px;max-width:1120px;padding:12px 16px;border-radius:12px;background:rgba(255,255,255,.8);color:var(--f6-ink)}
+.hz-banda{border:1.5px dashed var(--f6-line)}
+.hz-banda a{display:inline-flex;align-items:baseline;gap:8px;padding:6px 14px;border-radius:999px;background:var(--f6-b-bg);color:var(--f6-ink);text-decoration:none;font-size:clamp(13.5px,1.05vw,15.5px)}
+.hz-banda a b{color:var(--f6-b)}
+.hz-niv span{display:inline-flex;align-items:center;font-weight:600;font-size:15px}
+.hz-niv em{margin-left:auto;font-style:normal;font-family:var(--mono);font-size:12px;color:var(--f6-mut)}
+
+/* La guía */
+.gd{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-rows:auto auto 1fr;grid-template-areas:"tabs tabs" "desc ba" "code ba";gap:12px clamp(14px,1.6vw,26px);align-items:start;max-width:1200px;
+    background:var(--f6-card);color:var(--f6-ink);border:1px solid var(--f6-line);border-radius:16px;padding:clamp(14px,1.6vw,24px);box-shadow:0 14px 34px rgba(20,25,40,.1)}
+.gd-grid{grid-area:tabs;display:grid;gap:6px}
+.gd-fila{display:grid;grid-template-columns:130px minmax(0,1fr);gap:8px;align-items:center;transition:opacity .35s,filter .35s}
+.gd-lv{display:flex;align-items:center;font-family:var(--mono);font-size:11.5px;letter-spacing:.04em;color:var(--f6-mut)}
+.gd-fila.on .gd-lv{color:var(--f6-b);font-weight:600}
+.gd-grid:has(.gd-fila.on) .gd-fila:not(.on){opacity:.55}
+.gd-ts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+.gd-t{font:inherit;font-family:var(--mono);font-size:clamp(11px,.82vw,12.5px);letter-spacing:.01em;line-height:1.2;padding:7px 6px;border-radius:8px;border:1.5px solid var(--f6-line);background:#fff;color:#3A404B;cursor:pointer;overflow-wrap:anywhere;transition:background .2s,border-color .2s,color .2s}
+.gd-t.on{border-color:var(--f6-b);background:var(--f6-b-bg);color:var(--f6-b);font-weight:700}
+@media (hover:hover){.gd-t:not(.on):hover{border-color:var(--f6-b);color:var(--f6-b)}}
+.gd-t:focus-visible{outline:2px solid var(--f6-b);outline-offset:2px}
+.gd-it{display:none}.gd-it.on{display:contents}
+.gd-desc{grid-area:desc;margin:4px 0 0;font-size:clamp(14px,1.15vw,17px);line-height:1.4}
+.gd-desc b{font-family:var(--mono);color:var(--f6-b);margin-right:4px}
+.gd-code{grid-area:code;margin:0;font-family:var(--mono);font-size:clamp(11px,.8vw,12.5px);line-height:1.65;background:#F5F7FA;border-radius:10px;padding:10px 12px 10px 0;counter-reset:ln;white-space:pre-wrap;overflow-wrap:anywhere;color:#2B313B}
+.gd-code .l{display:block;padding-left:3.2em;text-indent:-3.2em;counter-increment:ln}
+.gd-code .l::before{content:counter(ln);display:inline-block;width:2.4em;margin-right:.8em;text-align:right;color:#A4ABB6;text-indent:0}
+.gd-code i{font-style:normal}
+.gd-code i.k,.gd-code i.f{color:var(--f6-b);font-weight:600}
+.gd-code i.s{color:#3A404B;background:#EAEDF2;border-radius:3px}
+.gd-code i.m{color:#16151B;font-weight:600}
+.gd-code i.c{color:#6B7280}
+.gd-ba{grid-area:ba;display:grid;grid-template-columns:minmax(0,1.45fr) auto minmax(0,1fr);gap:8px;align-items:start;align-self:stretch}
+.gd-a,.gd-d{display:grid;gap:6px;align-content:start;border-radius:12px;padding:10px;min-width:0;transition:opacity .5s ease,filter .5s ease}
+.gd-a{background:#F5F7FA}
+.gd-d{background:var(--f6-g-bg)}
+.gd-a>small,.gd-d>small{justify-self:center}
+.gd-nom{justify-self:start;padding:3px 10px;border-radius:6px;background:#2B313B;color:#fff;font-size:12px;font-weight:600;font-family:var(--mono)}
+.gd-d .gd-nom{background:#0F5C39}
+.gd-fl{align-self:center;font-style:normal;font-size:22px;color:var(--f6-mut);transition:opacity .4s}
+.gd-tw{min-width:0;overflow-x:auto}
+.gd-tb{border-collapse:separate;border-spacing:0 3px;width:100%;font-size:clamp(11px,.82vw,12.5px)}
+.gd-tb th{text-align:left;font-family:var(--mono);font-size:10px;font-weight:500;color:var(--f6-mut);padding:2px 6px;white-space:nowrap}
+.gd-tb td{padding:4px 6px;background:#fff;white-space:nowrap;transition:background .5s,color .5s,opacity .5s}
+.gd-tb td:first-child{border-radius:5px 0 0 5px}.gd-tb td:last-child{border-radius:0 5px 5px 0}
+.gd-tb td.c{background:var(--f6-b-bg);color:#16151B;font-weight:600}
+.gd-tb th.c{color:var(--f6-b)}
+.gd-it.t3 .gd-tb tr.r td{font-weight:700}
+.gd-it.t3 .gd-tb tr.x td{opacity:.4;text-decoration:line-through;text-decoration-color:var(--f6-r)}
+.gd-it.t3 .gd-tb td.n{background:#fff;color:#0F5C39;font-weight:700;box-shadow:inset 0 0 0 1.5px var(--f6-g)}
+.gd-it.t3 .gd-tb th.n{color:var(--f6-g);font-weight:700}
+.gd-it.t1 .gd-d{opacity:.2;filter:saturate(0)}
+.gd-it.t1 .gd-fl{opacity:0}
+.gd-nota{margin:0;max-width:1200px;font-size:13px;color:var(--ink0,#16151B);opacity:.8}
+.hz-sig{max-width:1200px;margin-top:0;flex-wrap:wrap}
+.hz-sig>span{flex:1 1 280px}
+.hz-sig a{display:inline-flex;align-items:center;min-height:40px;padding:8px 18px;border-radius:999px;font-weight:600;font-size:15px;text-decoration:none}
+.hz-sig .hz-ant{color:var(--f6-b);border:1.5px solid var(--f6-b)}
+.hz-sig .hz-go{background:var(--f6-b);color:#fff}
+
+@media (prefers-reduced-motion:reduce){.gd-a,.gd-d,.gd-fl,.gd-tb td,.gd-fila{transition:none}}
+@media (max-width:1250px){
+  .gd{grid-template-columns:1fr;grid-template-areas:"tabs" "desc" "code" "ba"}
+  .gd-fila{grid-template-columns:110px minmax(0,1fr)}
+}
+@media (max-width:1099px){
+  .hz-camino{grid-template-columns:1fr 1fr}.hz-camino .hz-ar{display:none}
+}
+@media (max-width:820px){
+  .hz-camino{grid-template-columns:1fr}
+  .gd-fila{grid-template-columns:1fr}
+  .gd-ts{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .gd-ba{grid-template-columns:1fr}.gd-fl{justify-self:center;transform:rotate(90deg)}
+  .gd-code{white-space:pre;overflow-x:auto;overflow-wrap:normal}
+  .gd-code .l{padding-left:0;text-indent:0}
+}
+.gd-d .gd-tb td{white-space:normal}
+
+/* ═══ V5.33 · Documentar, segunda pasada (Diego, 22-nov: «mejora aún más la parte de documentación, que no se ve tan bien»).
+   Lo apagado se leía casi borrado, las letras eran chicas y las figuras ocupaban poco: más grande, más contraste, más ancho. ═══ */
+.dc .f6-h{font-size:clamp(30px,3.4vw,54px)}
+.dc small,.dc-fh>span,.dc-as li>span,.dc-fl li .k,.dc-pa header>span,.dc-log .w,.dc-lado small{font-size:12px}
+.dc-p1,.dc-p5,.dc-ciclo{max-width:1180px}
+.dc-v3,.dc-ruta,.dc-v6,.dc-3{max-width:1180px}
+.dc .f6-c,.dc .f6-ent{padding:clamp(16px,1.8vw,28px)}
+.dc-num{font-size:clamp(40px,4.6vw,72px)}
+.dc-qs li{font-size:clamp(14px,1.2vw,17px);padding:8px 15px}
+.dc-as li{font-size:clamp(14px,1.25vw,18px);grid-template-columns:24px 100px minmax(0,1fr)}
+.dc-fh b{font-size:clamp(26px,2.7vw,40px)}
+.dc-p1.t3 .dc-in,.dc-p5.t3 .dc-ca{opacity:.78;filter:saturate(.75)}
+.dc-3:has(.f6-op.on) .f6-op:not(.on){opacity:.72;filter:saturate(.5)}
+.dc-fl:has(li.on) li:not(.on){opacity:.62;filter:saturate(.5)}
+.dc-ruta.t1>:nth-child(n+2),.dc-ruta.t2>:nth-child(n+4){opacity:.45}
+.dc-fig{height:clamp(140px,22vh,200px)}
+.dc-big{font-size:clamp(40px,4.2vw,64px)}
+.dc-st p{font-size:clamp(14px,1.2vw,17px)}
+.dc-st .dc-txt{font-size:12px}
+.dc-fl li{font-size:clamp(15px,1.3vw,19px);padding:12px 14px}
+.dc-pa pre{font-size:clamp(12px,.98vw,14.5px)}
+.dc-pa header b{font-size:clamp(19px,1.7vw,25px)}
+.dc-q{font-size:clamp(15px,1.3vw,19px)}
+.dc-a b{font-size:clamp(40px,4.2vw,64px)}
+.dc-a>span{font-size:clamp(14.5px,1.25vw,18px)}
+.dc-ciclo li{font-size:clamp(14.5px,1.2vw,17px)}
+.dc-f6 dl{font-size:clamp(14.5px,1.2vw,17.5px);gap:11px 20px}
+.dc-log li{font-size:clamp(14.5px,1.2vw,17.5px)}
+.dc-l7 li>p{font-size:clamp(16px,1.45vw,21px)}
+.dc-f7{min-height:120px}
+.dc-f7 .mini{font-size:14px;max-width:190px}.dc-f7 .mini b{font-size:17px}
+.dc-f7 .pill b{font-size:26px}
+.dc-f7.c p{font-size:14px}
+.dc-lado{background:var(--f6-card);border:1px solid var(--f6-line);border-radius:14px;padding:16px 18px;box-shadow:0 10px 26px rgba(20,25,40,.08)}
+
+/* ═══ V5.33 · tercera vuelta: una página por herramienta, cuatro niveles (fácil · intermedio · difícil · avanzado). ═══ */
+.hz i.d4{display:inline-block;width:29px;height:8px;flex:none;background:radial-gradient(circle,var(--f6-b) 3px,transparent 3.5px) 0 50%/8px 8px repeat-x;margin-right:7px}
+.hz-pie{margin:0;font-size:12.5px;line-height:1.4;color:var(--f6-mut)}
+.hz-rail a b{font-size:11px}
+/* portada de una herramienta */
+.hz-tp{display:grid;grid-template-columns:minmax(0,1.1fr) minmax(0,1fr);gap:clamp(14px,1.8vw,26px);align-items:start;max-width:1180px}
+.hz-lvs{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.hz-lvb{background:var(--f6-card);border:1px solid var(--f6-line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start;color:var(--f6-ink);box-shadow:0 8px 22px rgba(20,25,40,.06)}
+.hz-lvt{display:inline-flex;align-items:center;text-decoration:none;color:var(--f6-b);font-size:17px}
+.hz-lvb p{margin:0;font-size:14px;line-height:1.35;color:#3A404B}
+.hz-fns{display:flex;flex-wrap:wrap;gap:6px}
+.hz-fn{font-family:var(--mono);font-size:12px;padding:5px 9px;border-radius:7px;border:1.5px solid var(--f6-line);color:#3A404B;text-decoration:none;background:#fff;transition:border-color .2s,color .2s}
+@media (hover:hover){.hz-fn:hover,.hz-lvt:hover{border-color:var(--f6-b);color:var(--f6-b)}}
+.hz-mu{display:grid;gap:8px;align-content:start}
+.hz-mu .gd-nom{justify-self:start}
+/* nivel: arriba la escalera de niveles y las funciones del nivel */
+.gd{grid-template-areas:"top top" "desc ba" "code ba"}
+.gd-top{grid-area:top;display:flex;flex-wrap:wrap;gap:10px 18px;align-items:center;justify-content:space-between;padding-bottom:12px;border-bottom:1px solid var(--f6-line)}
+.gd-esc{display:flex;gap:4px;flex-wrap:wrap}
+.gd-lvl{display:inline-flex;align-items:center;padding:6px 11px;border-radius:999px;font-family:var(--mono);font-size:12px;color:var(--f6-mut);text-decoration:none;border:1.5px solid transparent}
+.gd-lvl.on{color:var(--f6-b);border-color:var(--f6-b);background:var(--f6-b-bg);font-weight:600}
+@media (hover:hover){.gd-lvl:not(.on):hover{color:var(--f6-b)}}
+.gd-top .gd-ts{display:flex;flex-wrap:wrap;gap:6px}
+.gd-top .gd-t{min-width:118px;padding:8px 12px;font-size:12.5px}
+@media (max-width:1250px){.gd{grid-template-areas:"top" "desc" "code" "ba"}}
+@media (max-width:820px){.hz-tp,.hz-lvs{grid-template-columns:1fr}.gd-top .gd-t{min-width:0}}
+.gd{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr)}
+.gd-ba{grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px}
+.gd-tb{font-size:clamp(10.5px,.78vw,12px)}
+.gd-tb td{padding:4px 5px}.gd-tb th{padding:2px 5px}
+@media (max-width:1250px){.gd{grid-template-columns:1fr}}
+/* pantallas bajas (1280 × 720, 1100 × 700): la guía se compacta y la nota al pie se va (la dice la portada de cada herramienta) */
+@media (max-height:800px) and (min-width:1100px){
+  .hz .f6-h{font-size:clamp(26px,2.6vw,40px)}
+  .hz-n .gd-nota,.hz .f6-nota{display:none}
+  .gd{padding:12px 16px;gap:8px 18px}
+  .gd-top{padding-bottom:8px}
+  .gd-tb{border-spacing:0 2px}.gd-tb td{padding:2px 5px}
+  .gd-code{line-height:1.45;padding-top:7px;padding-bottom:7px}
+  .gd-a,.gd-d{padding:8px;gap:4px}
+  .gd-desc{font-size:14px}
+  .hz-camino .hz-pa{padding:12px}
+}
+@media (min-width:1100px) and (max-width:1250px){.gd{grid-template-columns:minmax(0,.7fr) minmax(0,1.3fr);grid-template-areas:"top top" "desc ba" "code ba"}}
+@media (min-width:1100px) and (max-width:1250px){.gd{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-areas:"top top" "desc code" "ba ba"}}
+@media (max-height:720px) and (min-width:1100px){.hz-n .gd{zoom:.93}}
+@media (max-height:720px) and (min-width:1100px) and (max-width:1250px){.hz-n .gd{zoom:.85}}
