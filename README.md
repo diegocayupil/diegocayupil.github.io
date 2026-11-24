@@ -30,3 +30,4 @@ Each published version is a commit and a tag (`v5.26`, `v5.27`, …). Earlier ve
 | v5.33 | New "Tools" section: an overview page plus one page per tool (DAX, SQL, Python, ELT with Dataflow and dbt, Git), each indexed by level (easy, intermediate, hard, advanced), 43 examples with code and a before → after table. "Document" made larger and easier to read. |
 | v5.34 | New profile photo on "About" (rectangle; on mobile it sits above the greeting). Colors unchanged. |
 | v5.35 | The six phases of "How I work" now use the field's own terms: Problem framing, Data quality, Data modeling, Data analysis, Storytelling, Documentation. Addresses unchanged. |
+| v5.36 | The same phase names in the mobile app (/m/) and in the last sentence that still used the old one. |
