@@ -5743,3 +5743,18 @@ button.f6-op{font:inherit;text-align:left;cursor:pointer}
 @media (min-width:1100px) and (max-width:1250px){.gd{grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);grid-template-areas:"top top" "desc code" "ba ba"}}
 @media (max-height:720px) and (min-width:1100px){.hz-n .gd{zoom:.93}}
 @media (max-height:720px) and (min-width:1100px) and (max-width:1250px){.hz-n .gd{zoom:.85}}
+
+/* ═══ V5.34 (23-nov): tu foto y la paleta «Papel y tinta» ═══
+   Diego cambió su foto de perfil (blanco y negro, pared gris con una franja de luz). Eligió: el sitio en «Papel y tinta» (fondo papel
+   como la pared, azul tinta más profundo, el paisaje con menos color) y la foto en rectángulo. Solo el modo claro; el oscuro queda igual. */
+html[data-pal="3"]:not([data-ui="dark"]){--bg:#FAF9F6;--bg-alt:#F2F0EB;--line:#E7E3DC;--line2:#D5CFC6;--ink0:#131417;--ink:#131417;--ink2:#383B42;--muted:#6C6F76;
+  --acc:#1B3B66;--acc-ink:#122B4C;--acc-lt:#9DB3D3;--acc-pale:#C8D5E7;--acc-soft:#E5EBF3;--acc-tint:#F0F3F7;--acc-rgb:27,59,102;--acc-lt-rgb:157,179,211;
+  --vcl:250,249,246;--sk-1:#EFDCE1;--sk-2:#E0BEC8;--sk-3:#C9939F;--sk-ink:#86505F}
+html[data-pal="3"]:not([data-ui="dark"]) body{background:var(--bg)}
+html[data-pal="3"]:not([data-ui="dark"]) #nav,html[data-pal="3"]:not([data-ui="dark"]) #nav.scrolled{background:rgba(250,249,246,.9);border-bottom-color:rgba(19,20,23,.08)}
+html[data-pal="3"]:not([data-ui="dark"]) #scene img.sc{filter:saturate(.45) contrast(1.02)}
+/* La foto: rectángulo con esquinas suaves */
+.aboutgrid .photo.has,html.deck .aboutgrid .photo.has{padding:0;width:min(290px,100%);aspect-ratio:4/5;border-radius:18px;background:#2a2a2a;box-shadow:0 2px 4px rgba(0,0,0,.08),0 24px 60px rgba(0,0,0,.18)}
+.aboutgrid .photo.has img{object-position:50% 16%;transform:scale(1.12);transform-origin:50% 20%}
+html.flow .aboutgrid .photo.has{width:min(220px,60vw);border-radius:14px}
+html.flow .aboutgrid .photo.has{order:-1;width:min(170px,46vw);margin-bottom:6px}   /* en el celular, la foto arriba del saludo */
