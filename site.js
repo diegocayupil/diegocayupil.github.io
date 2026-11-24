@@ -1124,7 +1124,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
       exitOf: (lv, a) => a === 2 && lv === 0 ? 'e1' : a === 2 && lv === 1 ? 'e2' : null,
       labels: {
         1: [() => say('Sí: armo un modelo', 'Yes: I build a model'), () => say('No: una ad-hoc query', 'No: an ad-hoc query')],
-        2: [() => say('Sí: sigo', 'Yes: I go on'), () => say('No: vuelvo a Revisar', 'No: back to Review')],
+        2: [() => say('Sí: sigo', 'Yes: I go on'), () => say('No: vuelvo a Data quality', 'No: back to Data quality')],
         3: [() => say('Sí: marts en BigQuery', 'Yes: marts in BigQuery'), () => say('No: Python carga a BigQuery', 'No: Python loads to BigQuery')],
         4: [() => say('Uno: star schema', 'One: star schema'), () => say('Varios: galaxy schema', 'Several: galaxy schema')],
         5: [() => say('Sí: una dim_date', 'Yes: one dim_date'), () => say('No: shrunken dimension', 'No: shrunken dimension')],
@@ -1535,7 +1535,7 @@ const R0 = SC.perches[SC.perches.length - 1]; root.style.setProperty('--rock', M
     const chips = (a, b) => '<div class="aq-ch">' + a.map(x => `<i>${x}</i>`).join('') + (b || []).map(x => `<i class="l1">${x}</i>`).join('') + '</div>';
     const QA = [
       { t: ['Qué hago', 'What I do'], q: ['¿Qué haces?', 'What do you do?'],
-        v: '<div class="aq-ph"><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i></div><small>' + both('Definir · Revisar · Modelar · Analizar · Comunicar', 'Define · Review · Model · Analyze · Communicate') + '</small>',
+        v: '<div class="aq-ph"><i class="on">1</i><i>2</i><i>3</i><i>4</i><i>5</i><i>6</i></div><small>' + both('Problem framing · Data quality · Data modeling · Data analysis · Storytelling · Documentation', 'Problem framing · Data quality · Data modeling · Data analysis · Storytelling · Documentation') + '</small>',
         a: ['Data analyst: SQL, Power BI y Python. Parto por definir el problema.', 'Data analyst: SQL, Power BI and Python. I start by defining the problem.'], to: 'index.html#metodo', go: ['Cómo trabajo', 'How I work'] },
       { t: ['La IA', 'AI'], q: ['¿Cómo usas la IA?', 'How do you use AI?'],
         v: '<div class="aq-cy"><i class="me">' + both('Yo', 'Me') + '</i><b>→</b><i>' + both('IA', 'AI') + '</i><b>→</b><i class="me">' + both('Yo', 'Me') + '</i><b>→</b><i class="me">' + both('Yo', 'Me') + '</i></div><small>' + both('Defino · Arma · Compruebo · Decido', 'Define · Builds · Check · Decide') + '</small>',

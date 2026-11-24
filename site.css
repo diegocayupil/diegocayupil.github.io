@@ -5752,3 +5752,10 @@ button.f6-op{font:inherit;text-align:left;cursor:pointer}
 .aboutgrid .photo.has img{object-position:50% 16%;transform:scale(1.12);transform-origin:50% 20%}
 html.flow .aboutgrid .photo.has{width:min(220px,60vw);border-radius:14px}
 html.flow .aboutgrid .photo.has{order:-1;width:min(170px,46vw);margin-bottom:6px}   /* en el celular, la foto arriba del saludo */
+
+/* ═══ V5.35 (24-nov): los nombres de las fases son más largos: el riel de Documentation va en una sola línea si cabe;
+   en pantallas medianas queda el número de cada fase y solo el nombre de la actual ═══ */
+@media (min-width:1500px){.dc .f6-rail a span{white-space:nowrap;letter-spacing:.02em}.dc .f6-rail a+a::before{width:14px;margin:0 8px}}
+@media (max-width:1499px){.dc .f6-rail a:not(.on) span{display:none !important}.dc .f6-rail a+a::before{width:14px;margin:0 6px}}
+/* Proyectos: «Part 1 · step 1 of 7 · Problem framing» en una línea por dato, sin encimarse */
+@media (max-width:1250px){.pj-tx .pj-k{line-height:1.45}.pj-tx .pj-k b{display:inline-block;white-space:nowrap}}
